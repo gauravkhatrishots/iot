@@ -10,7 +10,7 @@
 #define TOPIC       "mcs/:DlHXP81j/:h36abSUVlALttWWI/:touchannel"
 #define TOPIC1       "mcs/:DlHXP81j/:h36abSUVlALttWWI/:val"
 #define PAYLOAD     ",touchannel,1"
-#define QOS         1
+#define QOS         2
 #define TIMEOUT     10000L
 
 int main(int argc, char* argv[])
@@ -41,6 +41,8 @@ int main(int argc, char* argv[])
         exit(-1);
     }
     while(1){
+    MQTTClient_connect(client, &conn_opts);
+
     pubmsg.payload = msg[i];
     i=(i+1)%2;
     pubmsg.payloadlen = strlen(pubmsg.payload);
@@ -64,6 +66,8 @@ int main(int argc, char* argv[])
     rc = MQTTClient_waitForCompletion(client, token, TIMEOUT);
     printf("Message with delivery token %d delivered token);
 	sleep(10);    
+
+    MQTTClient_disconnect(client, 10);
   
 }
 	
